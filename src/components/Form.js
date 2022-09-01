@@ -1,8 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useTodoLayerValue } from '../context/TodoContext';
 
 export default function
     () {
+    const inputRef = useRef(null)
+    useEffect(() => {
+        inputRef.current.focus();
+    }, [])
     const [{ todos }, dispatch] = useTodoLayerValue();
     const [todoText, setTodoTex] = useState('')
 
@@ -23,7 +27,7 @@ export default function
     return (
         <div className='form'>
             <form onSubmit={handleSubmit} className="todo-form">
-                <input type='text' className='todo-input' value={todoText} onChange={(event) => { setTodoTex(event.target.value) }} />
+                <input type='text' className='todo-input' value={todoText} onChange={(event) => { setTodoTex(event.target.value) }} ref={inputRef} />
                 <button className='todo-button'>
                     Add
                 </button>
